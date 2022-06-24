@@ -78,7 +78,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     const forwarded = appContext.ctx.req.headers["x-forwarded-for"];
     const ip = forwarded
       ? (typeof forwarded !== "string" ? "" : forwarded).split(/, /)[0]
-      : appContext.ctx.req.socket.remoteAddress;
+      : appContext.ctx.req.socket?.remoteAddress || "vercel";
     const query = appContext.ctx.query?.pageId || "app";
     log.info("Connection", { ip, page: query });
     await log.flush();
